@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أحمد طارق عادل | UI/UX & Graphic Designer</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a78bfa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z'/%3E%3C/svg%3E" type="image/svg+xml">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Swiper CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        /* Import Both Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            /* Painted Black Palette */
+            --pb-0A: #0A0A0A;
+            --pb-16: #161616;
+            --pb-1D: #1D1C1C;
+            --pb-23: #232323;
+            --pb-2C: #2C2C2C;
+            --pb-36: #363636;
+            --pb-45: #454444;
+        }
+
+        body {
+            background-color: var(--pb-0A);
+            color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Language Specific Fonts & Visibility */
+        html[lang="ar"] body {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        html[lang="en"] body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html[lang="ar"] .en {
+            display: none !important;
+        }
+        
+        html[lang="en"] .ar {
+            display: none !important;
+        }
+        
+        .glass-card {
+            background: rgba(22, 22, 22, 0.7); /* #161616 equivalent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--pb-2C);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-glass:hover {
+            border-color: var(--pb-45);
+            background: rgba(29, 28, 28, 0.9); /* #1D1C1C equivalent */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-modern {
+            background: linear-gradient(to right, #a855f7, #ec4899, #f43f5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar - Matching Palette */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: var(--pb-16);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--pb-36);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: var(--pb-45); 
+        }
+        
+        /* Hide scrollbar completely for mobile mockup but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .gallery-img {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-img:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+            z-index: 10;
+        }
+        
+        /* Scrolling UI Animation Hint */
+        @keyframes scrollHint {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+        .animate-scroll-hint {
+            animation: scrollHint 2s infinite ease-in-out;
+        }
+
+        /* Swiper Customizations */
+        .swiper-pagination-bullet {
+            background-color: var(--pb-45) !important;
+            opacity: 0.5 !important;
+            width: 10px !important;
+            height: 10px !important;
+            transition: all 0.3s ease !important;
+        }
+        .swiper-pagination-bullet-active {
+            background-color: #a78bfa !important; /* purple-400 equivalent */
+            opacity: 1 !important;
+            width: 30px !important;
+            border-radius: 8px !important;
+        }
+
+        /* Arrow Styling & Placement outside cards */
+        .swiper-button-next, .swiper-button-prev {
+            color: #94a3b8 !important; /* slate-400 */
+            transition: all 0.3s ease !important;
+            background: #1D1C1C !important;
+            border: 1px solid #2C2C2C !important;
+            border-radius: 50% !important;
+            width: 48px !important;
+            height: 48px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 18px !important;
+            font-weight: bold;
+        }
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            color: #f8fafc !important; /* white */
+            background: #2C2C2C !important;
+            transform: scale(1.05);
+        }
+        .swiper-button-disabled {
+            opacity: 0.3 !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+        }
+
+        /* Desktop spacing to keep arrows outside cards */
+        @media (min-width: 768px) {
+            .ui-swiper-container {
+                padding-left: 64px !important;
+                padding-right: 64px !important;
+            }
+            .swiper-button-next {
+                right: 0 !important;
+            }
+            .swiper-button-prev {
+                left: 0 !important;
+            }
+        }
+
+        /* Hide arrows on mobile to favor swiping */
+        @media (max-width: 767px) {
+            .swiper-button-next, .swiper-button-prev {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen relative selection:bg-purple-500/30">
+
+    <!-- Background blobs -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[120px] mix-blend-screen"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-pink-600/10 blur-[120px] mix-blend-screen"></div>
+        <div class="absolute top-[40%] left-[40%] w-[400px] h-[400px] rounded-full bg-rose-600/5 blur-[100px] mix-blend-screen"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card border-b border-[#2C2C2C] shadow-lg rounded-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 font-extrabold text-xl md:text-2xl tracking-wider text-gradient-modern pb-1">
+                    <span class="ar">أحمد طارق عادل</span>
+                    <span class="en">Ahmed Tarek Adel</span>
+                </div>
+                
+                <div class="flex items-center gap-2 md:gap-4">
+                    <!-- Desktop Nav Links -->
+                    <div class="hidden lg:flex items-baseline gap-3 xl:gap-4">
+                        <a href="#about" class="text-slate-400 hover:text-purple-400 px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <span class="ar">عني</span><span class="en">About</span>
+                        </a>
+                        <a href="#projects" class="text-slate-400 hover:text-pink-400 px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <span class="ar">تصاميم UI/UX</span><span class="en">UI/UX Projects</span>
+                        </a>
+                        <a href="#graphics" class="text-slate-400 hover:text-rose-400 px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <span class="ar">الجرافيك</span><span class="en">Graphics</span>
+                        </a>
+                        <a href="#skills" class="text-slate-400 hover:text-purple-400 px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <span class="ar">المهارات</span><span class="en">Skills</span>
+                        </a>
+                        <a href="#experience" class="text-slate-400 hover:text-slate-200 px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <span class="ar">الخبرات</span><span class="en">Experience</span>
+                        </a>
+                        <a href="#contact" class="text-slate-400 hover:text-white px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <span class="ar">تواصل معي</span><span class="en">Contact</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Language Toggle Button -->
+                    <button id="lang-toggle" class="glass-card hover:bg-[#232323] border-[#2C2C2C] px-3 py-1.5 rounded-lg flex items-center gap-2 text-slate-300 hover:text-white transition-all shadow-sm">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                        <span id="lang-text" class="text-xs font-bold tracking-wider">EN</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden text-slate-300 hover:text-white p-2 focus:outline-none ml-1">
+                        <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+                        <i data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 w-full bg-[#0A0A0A] border-b border-[#2C2C2C] shadow-2xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#about" class="mobile-link text-slate-400 hover:text-purple-400 hover:bg-[#161616] px-4 py-3 rounded-xl text-base font-medium transition-colors">
+                    <span class="ar">عني</span><span class="en">About</span>
+                </a>
+                <a href="#projects" class="mobile-link text-slate-400 hover:text-pink-400 hover:bg-[#161616] px-4 py-3 rounded-xl text-base font-medium transition-colors">
+                    <span class="ar">تصاميم UI/UX</span><span class="en">UI/UX Projects</span>
+                </a>
+                <a href="#graphics" class="mobile-link text-slate-400 hover:text-rose-400 hover:bg-[#161616] px-4 py-3 rounded-xl text-base font-medium transition-colors">
+                    <span class="ar">الجرافيك</span><span class="en">Graphics</span>
+                </a>
+                <a href="#skills" class="mobile-link text-slate-400 hover:text-purple-400 hover:bg-[#161616] px-4 py-3 rounded-xl text-base font-medium transition-colors">
+                    <span class="ar">المهارات</span><span class="en">Skills</span>
+                </a>
+                <a href="#experience" class="mobile-link text-slate-400 hover:text-slate-200 hover:bg-[#161616] px-4 py-3 rounded-xl text-base font-medium transition-colors">
+                    <span class="ar">الخبرات والتعليم</span><span class="en">Experience & Education</span>
+                </a>
+                <a href="#contact" class="mobile-link text-slate-400 hover:text-white hover:bg-[#161616] px-4 py-3 rounded-xl text-base font-medium transition-colors">
+                    <span class="ar">تواصل معي</span><span class="en">Contact</span>
+                </a>
+
+                <!-- Mobile Social & CV -->
+                <div class="px-2 py-4 mt-2 border-t border-[#2C2C2C] flex flex-col gap-4">
+                    <a href="Ahmed_Tarek_Adel_CV.pdf" download="Ahmed_Tarek_Adel_CV.pdf" class="flex items-center justify-center gap-2 w-full py-3 bg-[#232323] hover:bg-[#363636] border border-[#2C2C2C] rounded-xl text-slate-300 text-sm font-bold transition-all shadow-sm">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span class="ar">تحميل السيرة الذاتية (CV)</span>
+                        <span class="en">Download CV</span>
+                    </a>
+                    <div class="flex justify-center gap-6">
+                        <a href="https://behance.net/Aahmedtarekadel" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-blue-500 transition-colors p-2" title="Behance">
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+                                <path d="M232 237.2c31.8-15.2 48.4-38.2 48.4-74 0-70.6-52.6-87.8-113.3-87.8H0v354.4h171.8c64.4 0 124.9-30.9 124.9-102.9 0-44.5-21.1-77.4-64.7-89.7zM58.4 122h66.1c30.9 0 49.2 11.5 49.2 33 0 26.1-19.7 34.6-51.8 34.6H58.4V122zm73.3 258.4H58.4v-71.6h71.4c32.6 0 53.9 13.8 53.9 36.9 0 22.2-18.9 34.7-52 34.7zm321.4-114.6c-18.9-14.9-42.5-22.2-70.5-22.2-54.6 0-98.5 40.1-98.5 106.8 0 68 45.4 105.4 103.9 105.4 48.9 0 81.2-25.2 97.4-62.8h-44.5c-11.5 17.2-28.7 26.2-51.2 26.2-32.6 0-52.6-19.5-56-54.6h153.9c.5-5.2 .5-13.8 .5-18.4 0-35.6-13.3-64.4-35-80.4zm-68.5 19.5c23 0 38.5 16.1 41.4 40.2h-85.7c4.6-23 21.3-40.2 44.3-40.2zM395 196.2h-82.7v-36.8h82.7v36.8z"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/in/ahmed-tarek-adel-a53687215" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-blue-400 transition-colors p-2" title="LinkedIn">
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[90vh] text-center">
+        <div id="hero-content" class="transition-all duration-1000 transform translate-y-10 opacity-0 w-full">
+            
+            <!-- Profile Image in Hero -->
+            <div class="relative w-36 h-36 md:w-48 md:h-48 mx-auto mb-8 rounded-full p-1.5 bg-gradient-to-tr from-purple-500 via-pink-500 to-rose-500 shadow-[0_0_40px_rgba(236,72,153,0.3)] group">
+                <img src="https://i.postimg.cc/CL9sKdkq/me-site.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-[#0A0A0A] transition-transform duration-500 group-hover:scale-105 bg-[#161616]">
+            </div>
+
+            <div class="inline-block p-px rounded-full bg-gradient-to-r from-purple-500/50 via-pink-500/50 to-rose-500/50 mb-8 max-w-full">
+                <div class="bg-[#0A0A0A] rounded-full px-4 sm:px-6 py-2 flex items-center justify-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-pink-400 animate-pulse shadow-[0_0_8px_rgba(244,114,182,0.8)] shrink-0"></span>
+                    <span class="text-slate-300 text-xs sm:text-sm font-medium tracking-wide truncate">
+                        <span class="ar">متاح للعمل الحر (Freelance) والمشاريع الجديدة</span>
+                        <span class="en">Available for Freelance & New Projects</span>
+                    </span>
+                </div>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-white tracking-tight">
+                <span class="text-gradient-modern leading-normal mt-2 inline-block pb-4">
+                    <span class="ar">أحمد طارق عادل</span>
+                    <span class="en">Ahmed Tarek Adel</span>
+                </span>
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed font-light" dir="ltr">
+                Graphic Designer | <span class="text-pink-400 font-semibold">UI/UX Designer</span>
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+                <a href="#projects" class="group px-6 sm:px-8 py-3 sm:py-4 rounded-full glass-card hover-glass text-white text-sm sm:text-base font-medium transition-all flex items-center gap-3 border border-[#2C2C2C] hover:bg-[#232323]">
+                    <i data-lucide="figma" class="w-5 h-5 sm:w-[22px] sm:h-[22px] text-pink-400 group-hover:scale-110 transition-transform"></i>
+                    <span>
+                        <span class="ar">استعرض تصاميم الواجهات (UI/UX)</span>
+                        <span class="en">Explore UI/UX Designs</span>
+                    </span>
+                </a>
+                
+                <a href="Ahmed_Tarek_Adel_CV.pdf" download="Ahmed_Tarek_Adel_CV.pdf" class="group px-6 sm:px-8 py-3 sm:py-4 rounded-full glass-card hover-glass text-slate-300 hover:text-white text-sm sm:text-base font-medium transition-all flex items-center gap-3 border border-[#2C2C2C] hover:bg-[#232323]">
+                    <i data-lucide="download" class="w-5 h-5 sm:w-[22px] sm:h-[22px] text-slate-400 group-hover:text-white transition-colors"></i>
+                    <span>
+                        <span class="ar">تحميل CV</span>
+                        <span class="en">Download CV</span>
+                    </span>
+                </a>
+
+                <div class="flex items-center gap-3">
+                    <a href="https://behance.net/Aahmedtarekadel" target="_blank" rel="noopener noreferrer" class="p-3 sm:p-3.5 rounded-full glass-card hover-glass text-slate-400 hover:text-blue-500 transition-all border border-[#2C2C2C] hover:bg-[#232323]" title="Behance">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+                            <path d="M232 237.2c31.8-15.2 48.4-38.2 48.4-74 0-70.6-52.6-87.8-113.3-87.8H0v354.4h171.8c64.4 0 124.9-30.9 124.9-102.9 0-44.5-21.1-77.4-64.7-89.7zM58.4 122h66.1c30.9 0 49.2 11.5 49.2 33 0 26.1-19.7 34.6-51.8 34.6H58.4V122zm73.3 258.4H58.4v-71.6h71.4c32.6 0 53.9 13.8 53.9 36.9 0 22.2-18.9 34.7-52 34.7zm321.4-114.6c-18.9-14.9-42.5-22.2-70.5-22.2-54.6 0-98.5 40.1-98.5 106.8 0 68 45.4 105.4 103.9 105.4 48.9 0 81.2-25.2 97.4-62.8h-44.5c-11.5 17.2-28.7 26.2-51.2 26.2-32.6 0-52.6-19.5-56-54.6h153.9c.5-5.2 .5-13.8 .5-18.4 0-35.6-13.3-64.4-35-80.4zm-68.5 19.5c23 0 38.5 16.1 41.4 40.2h-85.7c4.6-23 21.3-40.2 44.3-40.2zM395 196.2h-82.7v-36.8h82.7v36.8z"/>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/in/ahmed-tarek-adel-a53687215" target="_blank" rel="noopener noreferrer" class="p-3 sm:p-3.5 rounded-full glass-card hover-glass text-slate-400 hover:text-blue-400 transition-all border border-[#2C2C2C] hover:bg-[#232323]" title="LinkedIn">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="glass-card hover-glass rounded-3xl p-6 sm:p-8 md:p-14 relative overflow-hidden group border-t-4 border-t-purple-500">
+            <div class="absolute -top-20 -right-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-colors duration-700"></div>
+            
+            <div class="flex flex-col md:flex-row gap-10 md:gap-14 items-center">
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <div class="relative w-56 h-56 md:w-64 md:h-64 rounded-3xl bg-gradient-to-tr from-slate-800 to-slate-600 p-1 shadow-2xl transition-shadow duration-500 group-hover:shadow-[0_0_40px_rgba(168,85,247,0.15)] rotate-3 hover:rotate-0">
+                        <div class="w-full h-full rounded-[22px] bg-[#0A0A0A] flex items-center justify-center overflow-hidden border-4 border-[#0A0A0A]">
+                            <img src="https://i.postimg.cc/CL9sKdkq/me-site.png" alt="Ahmed Tarek Adel" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-2/3 relative z-10">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 flex items-center gap-4 text-white">
+                        <span class="p-3 rounded-2xl bg-[#232323] border border-[#2C2C2C] text-slate-300">
+                            <i data-lucide="pen-tool" class="w-5 h-5 sm:w-6 sm:h-6 text-purple-400"></i>
+                        </span>
+                        <span class="ar">نبذة عني وفلسفتي</span>
+                        <span class="en">About Me</span>
+                    </h2>
+                    
+                    <div class="text-slate-400 text-base md:text-lg leading-relaxed mb-8 font-light space-y-4 text-justify">
+                        <p class="ar">
+                            أنا <strong class="text-white font-medium">أحمد طارق عادل</strong>، مصمم جرافيك ومصمم واجهات وتجربة مستخدم (UI/UX) شغوف بتحويل الأفكار المعقدة إلى تجارب بصرية سلسة وجذابة.
+                        </p>
+                        <p class="en">
+                            I am <strong class="text-white font-medium">Ahmed Tarek Adel</strong>, a Graphic and UI/UX Designer passionate about transforming complex ideas into seamless, engaging visual experiences.
+                        </p>
+                        
+                        <p class="ar">
+                            أؤمن بأن التصميم الجيد لا يقتصر فقط على المظهر الجمالي، بل يتمحور حول <strong>حل المشكلات</strong> وبناء رحلة مستخدم (User Journey) منطقية وفعالة. أعمل على دمج مبادئ التصميم الجرافيكي الحديثة مع أساسيات تجربة المستخدم لتقديم منتجات رقمية متكاملة (مواقع، تطبيقات جوال).
+                        </p>
+                        <p class="en">
+                            I believe good design is not just about aesthetics, but about <strong>problem-solving</strong> and building a logical, effective User Journey. I integrate modern graphic design principles with UX fundamentals to deliver comprehensive digital products (websites, mobile apps).
+                        </p>
+                        
+                        <p class="ar">
+                            خلال مسيرتي، اكتسبت خبرة متنوعة تمتد من كتابة المحتوى وإدارة وسائل التواصل الاجتماعي وصولاً إلى التخصص الكامل في الـ UI/UX وتطوير الهويات البصرية للعديد من الشركات.
+                        </p>
+                        <p class="en">
+                            Throughout my career, I've gained diverse experience ranging from content writing and social media management to fully specializing in UI/UX and developing visual identities for various companies.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="p-5 rounded-2xl flex items-start gap-4 hover:bg-[#232323] transition-colors bg-[#1D1C1C]">
+                            <i data-lucide="smartphone" class="w-6 h-6 text-pink-400 mt-1 shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold text-white text-lg mb-1">UI/UX Design</h3>
+                                <p class="text-sm text-slate-500 leading-relaxed ar">تصميم واجهات المستخدم وتجربة المستخدم للمواقع وتطبيقات الجوال مع التركيز على سهولة الاستخدام (Usability).</p>
+                                <p class="text-sm text-slate-500 leading-relaxed en">Designing UI/UX for websites and mobile apps, strongly focusing on usability and clean interfaces.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 rounded-2xl flex items-start gap-4 hover:bg-[#232323] transition-colors bg-[#1D1C1C]">
+                            <i data-lucide="layout-template" class="w-6 h-6 text-rose-400 mt-1 shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold text-white text-lg mb-1">Graphic Design</h3>
+                                <p class="text-sm text-slate-500 leading-relaxed ar">تصاميم السوشيال ميديا، المطبوعات، وبناء هوية متماسكة تعبر عن رسالة العلامة التجارية.</p>
+                                <p class="text-sm text-slate-500 leading-relaxed en">Social media designs, print materials, and building cohesive brand messaging.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UI/UX Projects (Swiper Carousel) -->
+    <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div class="text-center mb-12 md:mb-16">
+            <span class="text-pink-400 font-medium tracking-wider uppercase text-xs md:text-sm mb-2 block">
+                <span class="ar">معرض الأعمال الرقمية</span>
+                <span class="en">Digital Works Gallery</span>
+            </span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold flex items-center justify-center gap-3 md:gap-4 text-white">
+                <i data-lucide="monitor-smartphone" class="w-8 h-8 md:w-10 md:h-10 text-slate-400"></i>
+                <span class="ar">مشاريع UI/UX</span>
+                <span class="en">UI/UX Projects</span>
+            </h2>
+            <p class="text-slate-400 mt-4 max-w-2xl mx-auto text-sm md:text-base">
+                <span class="ar">اسحب لاستكشاف تصاميم واجهات الويب وتطبيقات الجوال. <strong class="text-pink-400">مرر مؤشر الماوس داخل الإطار لرؤية التصميم بالكامل.</strong></span>
+                <span class="en">Swipe to explore web and mobile app interface designs. <strong class="text-pink-400">Hover inside the frame and scroll down to see the full design.</strong></span>
+            </p>
+        </div>
+
+        <!-- Swiper Container -->
+        <div class="swiper ui-swiper-container w-full relative !pb-16">
+            <div class="swiper-wrapper">
+
+                <!-- Web UI Project 1: Maany -->
+                <div class="swiper-slide">
+                    <div class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden border-t-4 border-t-purple-500 h-full">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] -z-10"></div>
+                        
+                        <div class="flex flex-col lg:flex-row gap-10">
+                            <!-- Project Info -->
+                            <div class="w-full lg:w-1/3 space-y-4 md:space-y-6">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">
+                                    <span class="ar">منصة معاني</span>
+                                    <span class="en">Maany Platform</span>
+                                </h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">Web Design</span>
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">UI/UX</span>
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">Landing Page</span>
+                                </div>
+                                <p class="text-slate-400 font-light leading-relaxed ar text-sm md:text-base">
+                                    تصميم واجهة عصرية وجذابة لمنصة "معاني" المتخصصة في تقديم حلول متقدمة لنمو المتاجر الإلكترونية وزيادة الأرباح.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed en text-sm md:text-base">
+                                    A modern and engaging UI design for "Maany," a platform offering advanced solutions for e-commerce growth and maximizing profits.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed ar text-sm md:text-base">
+                                    اعتمد التصميم على دمج طابع الفضاء ليعكس فكرة النمو والارتقاء اللامحدود بالمبيعات، مع ترتيب هرمي واضح للمعلومات والخدمات لزيادة معدل التحويل (Conversion Rate) بشكل استراتيجي.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed en text-sm md:text-base">
+                                    The design uses an innovative space theme to reflect unlimited sales growth, utilizing a clear visual hierarchy for information and services to strategically boost conversion rates.
+                                </p>
+                            </div>
+
+                            <!-- Scrolling Web Mockup -->
+                            <div class="w-full lg:w-2/3">
+                                <div class="rounded-xl overflow-hidden border border-[#2C2C2C] shadow-2xl bg-[#161616]">
+                                    <!-- Browser Header -->
+                                    <div class="bg-[#1D1C1C] px-3 md:px-4 py-2 md:py-3 flex items-center gap-2 border-b border-[#2C2C2C]">
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ff5f56]"></div>
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ffbd2e]"></div>
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#27c93f]"></div>
+                                        <div class="ms-2 md:ms-4 flex-1">
+                                            <div class="bg-[#0A0A0A] h-5 md:h-6 rounded-md w-full max-w-[200px] md:max-w-sm mx-auto flex items-center px-2 md:px-3 border border-[#232323]">
+                                                <i data-lucide="lock" class="w-2 h-2 md:w-3 md:h-3 text-slate-500 me-1 md:me-2"></i>
+                                                <span class="text-[8px] md:text-[10px] text-slate-500 tracking-wider truncate">www.maany.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Scrolling Content Area -->
+                                    <div class="h-[400px] md:h-[500px] overflow-y-auto custom-scrollbar relative group bg-[#0A0A0A] cursor-ns-resize">
+                                        <img src="Maany.jpg" alt="Maany Design" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                                        
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none flex items-end justify-center pb-6 md:pb-8">
+                                            <div class="bg-[#161616]/80 backdrop-blur-md border border-[#2C2C2C] px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center gap-2 md:gap-3 text-white shadow-xl animate-scroll-hint">
+                                                <i data-lucide="mouse" class="w-4 h-4 md:w-5 md:h-5"></i>
+                                                <span class="font-medium text-xs md:text-sm">
+                                                    <span class="ar">مرر للأسفل لرؤية التصميم</span>
+                                                    <span class="en">Scroll down to see design</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web UI Project 2: Marktita -->
+                <div class="swiper-slide">
+                    <div class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden border-t-4 border-t-orange-500 h-full">
+                        <div class="absolute -bottom-32 -left-32 w-64 h-64 bg-orange-500/10 rounded-full blur-[80px] -z-10"></div>
+                        
+                        <div class="flex flex-col lg:flex-row-reverse gap-10 items-center h-full">
+                            <!-- Project Info -->
+                            <div class="w-full lg:w-1/3 space-y-4 md:space-y-6">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">
+                                    <span class="ar">وكالة ماركتيتا</span>
+                                    <span class="en">Marktita Agency</span>
+                                </h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">UI/UX</span>
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">Agency Website</span>
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">Creative</span>
+                                </div>
+                                <p class="text-slate-400 font-light leading-relaxed ar text-sm md:text-base">
+                                    تصميم واجهة مستخدم احترافية لشركة "ماركتيتا" المتخصصة في التسويق الإبداعي وصناعة المحتوى.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed en text-sm md:text-base">
+                                    Professional UI design for "Marktita," a company specialized in creative marketing and content creation.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed ar text-sm md:text-base">
+                                    يدمج التصميم ببراعة بين الألوان الداكنة والبرتقالي الحيوي ليعكس هوية الوكالة الجريئة، مع التركيز على عرض باقات العمل، قصص النجاح، والخدمات بأسلوب يسهل على الزائر اتخاذ قرار التواصل.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed en text-sm md:text-base">
+                                    The design cleverly blends dark themes with vibrant orange to reflect the agency's bold identity, focusing on showcasing packages, success stories, and services to encourage client outreach.
+                                </p>
+                            </div>
+
+                            <!-- Scrolling Web Mockup -->
+                            <div class="w-full lg:w-2/3">
+                                <div class="rounded-xl overflow-hidden border border-[#2C2C2C] shadow-2xl bg-[#161616]">
+                                    <div class="bg-[#1D1C1C] px-3 md:px-4 py-2 md:py-3 flex items-center gap-2 border-b border-[#2C2C2C]">
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ff5f56]"></div>
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ffbd2e]"></div>
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#27c93f]"></div>
+                                        <div class="ms-2 md:ms-4 flex-1">
+                                            <div class="bg-[#0A0A0A] h-5 md:h-6 rounded-md w-full max-w-[200px] md:max-w-sm mx-auto flex items-center px-2 md:px-3 border border-[#232323]">
+                                                <i data-lucide="lock" class="w-2 h-2 md:w-3 md:h-3 text-slate-500 me-1 md:me-2"></i>
+                                                <span class="text-[8px] md:text-[10px] text-slate-500 tracking-wider truncate">www.marktita.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="h-[400px] md:h-[500px] overflow-y-auto custom-scrollbar relative group bg-[#0A0A0A] cursor-ns-resize">
+                                        <img src="Marktita%20Homepage.jpg" alt="Marktita Design" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                                        
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none flex items-end justify-center pb-6 md:pb-8">
+                                            <div class="bg-[#161616]/80 backdrop-blur-md border border-[#2C2C2C] px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center gap-2 md:gap-3 text-white shadow-xl animate-scroll-hint">
+                                                <i data-lucide="mouse" class="w-4 h-4 md:w-5 md:h-5"></i>
+                                                <span class="font-medium text-xs md:text-sm">
+                                                    <span class="ar">مرر للأسفل لرؤية التصميم</span>
+                                                    <span class="en">Scroll down to see design</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web UI Project 3: Azzrk -->
+                <div class="swiper-slide">
+                    <div class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden border-t-4 border-t-blue-500 h-full">
+                        <div class="absolute -top-32 -left-32 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -z-10"></div>
+                        
+                        <div class="flex flex-col lg:flex-row gap-10 h-full">
+                            <!-- Project Info -->
+                            <div class="w-full lg:w-1/3 space-y-4 md:space-y-6">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">
+                                    <span class="ar">منصة أزرق</span>
+                                    <span class="en">Azzrk Platform</span>
+                                </h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">Web Design</span>
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">Marketing Platform</span>
+                                    <span class="px-3 py-1 bg-[#232323] text-slate-300 text-xs rounded-lg border border-[#2C2C2C]">UI/UX</span>
+                                </div>
+                                <p class="text-slate-400 font-light leading-relaxed ar text-sm md:text-base">
+                                    تصميم شامل واحترافي لمنصة "أزرق" لتقديم الحلول الاستشارية والتسويقية المتكاملة.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed en text-sm md:text-base">
+                                    A comprehensive and professional design for the "Azzrk" platform, offering integrated marketing and consulting solutions.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed ar text-sm md:text-base">
+                                    تم توظيف تدرجات اللون الأزرق ببراعة لتعزيز الإحساس بالثقة والمصداقية، بالإضافة إلى بناء رحلة مستخدم سلسة تستعرض الخدمات، الإحصائيات، وفريق العمل بأسلوب منظم يبرز احترافية الوكالة.
+                                </p>
+                                <p class="text-slate-400 font-light leading-relaxed en text-sm md:text-base">
+                                    Blue gradients were expertly used to foster a sense of trust and credibility, along with a seamless user journey that showcases services, statistics, and the team in an organized, professional manner.
+                                </p>
+                            </div>
+
+                            <!-- Scrolling Web Mockup -->
+                            <div class="w-full lg:w-2/3">
+                                <div class="rounded-xl overflow-hidden border border-[#2C2C2C] shadow-2xl bg-[#161616]">
+                                    <div class="bg-[#1D1C1C] px-3 md:px-4 py-2 md:py-3 flex items-center gap-2 border-b border-[#2C2C2C]">
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ff5f56]"></div>
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ffbd2e]"></div>
+                                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#27c93f]"></div>
+                                        <div class="ms-2 md:ms-4 flex-1">
+                                            <div class="bg-[#0A0A0A] h-5 md:h-6 rounded-md w-full max-w-[200px] md:max-w-sm mx-auto flex items-center px-2 md:px-3 border border-[#232323]">
+                                                <i data-lucide="lock" class="w-2 h-2 md:w-3 md:h-3 text-slate-500 me-1 md:me-2"></i>
+                                                <span class="text-[8px] md:text-[10px] text-slate-500 tracking-wider truncate">www.azzrk.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="h-[400px] md:h-[500px] overflow-y-auto custom-scrollbar relative group bg-[#0A0A0A] cursor-ns-resize">
+                                        <img src="WhatsApp%20Image%202026-03-13%20at%2021.24.16.jpg" alt="Azzrk Design" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                                        
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none flex items-end justify-center pb-6 md:pb-8">
+                                            <div class="bg-[#161616]/80 backdrop-blur-md border border-[#2C2C2C] px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center gap-2 md:gap-3 text-white shadow-xl animate-scroll-hint">
+                                                <i data-lucide="mouse" class="w-4 h-4 md:w-5 md:h-5"></i>
+                                                <span class="font-medium text-xs md:text-sm">
+                                                    <span class="ar">مرر للأسفل لرؤية التصميم</span>
+                                                    <span class="en">Scroll down to see design</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD YOUR FUTURE SLIDES HERE inside a <div class="swiper-slide">...</div> wrapper -->
+
+            </div>
+
+            <!-- Swiper Pagination -->
+            <div class="swiper-pagination !bottom-0"></div>
+            
+            <!-- Swiper Navigation Arrows -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+    <!-- Graphic Design Gallery Section -->
+    <section id="graphics" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-[#161616] rounded-3xl border border-[#2C2C2C] my-10 relative">
+        <div class="text-center mb-12 md:mb-16">
+            <span class="text-rose-400 font-medium tracking-wider uppercase text-xs md:text-sm mb-2 block">
+                <span class="ar">الهويات البصرية والسوشيال ميديا</span>
+                <span class="en">Visual Identities & Social Media</span>
+            </span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold flex items-center justify-center gap-3 md:gap-4 text-white">
+                <i data-lucide="palette" class="w-8 h-8 md:w-10 md:h-10 text-slate-400"></i>
+                <span class="ar">تصميم الجرافيك</span>
+                <span class="en">Graphic Design</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Placeholders for Graphic Design Work -->
+            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 1" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+            <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 2" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+            <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 3" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 4" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+            <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 5" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+            <img src="https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 6" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 7" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Graphic Design 8" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl border border-[#2C2C2C] gallery-img">
+        </div>
+        <div class="text-center mt-8 md:mt-10">
+            <p class="text-slate-400 font-light text-xs md:text-sm">
+                <span class="ar">اضغط على أي صورة لتكبيرها</span>
+                <span class="en">Click on any image to enlarge</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+        <div class="absolute inset-0 bg-[#161616] -z-10 rounded-3xl border border-[#2C2C2C] mx-4 sm:mx-0"></div>
+        
+        <div class="text-center mb-12 md:mb-16 pt-8">
+            <span class="text-slate-500 font-medium tracking-wider uppercase text-xs md:text-sm mb-2 block">
+                <span class="ar">الأدوات، التقنيات والمهارات الشخصية</span>
+                <span class="en">Tools, Technologies & Soft Skills</span>
+            </span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold flex items-center justify-center gap-3 text-white">
+                <i data-lucide="cpu" class="w-8 h-8 md:w-10 md:h-10 text-slate-400"></i>
+                <span class="ar">المهارات (Skills)</span>
+                <span class="en">My Skills</span>
+            </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto pb-8 px-2 sm:px-4">
+            
+            <!-- Graphic Design Skills -->
+            <div class="bg-[#1D1C1C] border border-[#2C2C2C] p-6 sm:p-8 rounded-2xl hover:border-[#454444] transition-colors">
+                <h3 class="text-lg md:text-xl font-semibold mb-6 flex items-center gap-3 text-slate-200">
+                    <span class="p-2 rounded-lg bg-[#232323] border border-[#2C2C2C] text-purple-400"><i data-lucide="image" class="w-5 h-5"></i></span> 
+                    <span class="ar">التصميم الجرافيكي</span><span class="en">Graphic Design</span>
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs md:text-sm mb-1 text-slate-300">
+                            <span>Adobe Photoshop</span>
+                            <span class="text-purple-400"><span class="ar">متقدم</span><span class="en">Advanced</span></span>
+                        </div>
+                        <div class="w-full bg-[#0A0A0A] rounded-full h-1.5"><div class="bg-purple-500 h-1.5 rounded-full" style="width: 90%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs md:text-sm mb-1 text-slate-300">
+                            <span>Adobe Illustrator</span>
+                            <span class="text-purple-400"><span class="ar">متوسط</span><span class="en">Intermediate</span></span>
+                        </div>
+                        <div class="w-full bg-[#0A0A0A] rounded-full h-1.5"><div class="bg-purple-400 h-1.5 rounded-full" style="width: 70%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI/UX Skills -->
+            <div class="bg-[#1D1C1C] border border-[#2C2C2C] p-6 sm:p-8 rounded-2xl hover:border-[#454444] transition-colors">
+                <h3 class="text-lg md:text-xl font-semibold mb-6 flex items-center gap-3 text-slate-200">
+                    <span class="p-2 rounded-lg bg-[#232323] border border-[#2C2C2C] text-pink-400"><i data-lucide="layout" class="w-5 h-5"></i></span> 
+                    <span class="ar">واجهات المستخدم</span><span class="en">UI/UX Design</span>
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs md:text-sm mb-1 text-slate-300">
+                            <span>Figma</span>
+                            <span class="text-pink-400"><span class="ar">مبتدئ</span><span class="en">Beginner</span></span>
+                        </div>
+                        <div class="w-full bg-[#0A0A0A] rounded-full h-1.5"><div class="bg-pink-500 h-1.5 rounded-full" style="width: 40%"></div></div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 bg-[#232323] text-slate-400 text-xs rounded-lg border border-[#2C2C2C]">Wireframing</span>
+                        <span class="px-2 py-1 md:px-3 md:py-1 bg-[#232323] text-slate-400 text-xs rounded-lg border border-[#2C2C2C]">Prototyping</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="bg-[#1D1C1C] border border-[#2C2C2C] p-6 sm:p-8 rounded-2xl hover:border-[#454444] transition-colors md:col-span-2 lg:col-span-1">
+                <h3 class="text-lg md:text-xl font-semibold mb-6 flex items-center gap-3 text-slate-200">
+                    <span class="p-2 rounded-lg bg-[#232323] border border-[#2C2C2C] text-blue-400"><i data-lucide="users" class="w-5 h-5"></i></span> 
+                    <span class="ar">المهارات الشخصية</span><span class="en">Soft Skills</span>
+                </h3>
+                <div class="flex flex-wrap gap-2 md:gap-2.5">
+                    <span class="px-2 py-1 md:px-3 md:py-1.5 bg-[#232323] text-slate-300 text-xs md:text-sm rounded-lg border border-[#2C2C2C]"><span class="ar">مهارات التواصل</span><span class="en">Communication</span></span>
+                    <span class="px-2 py-1 md:px-3 md:py-1.5 bg-[#232323] text-slate-300 text-xs md:text-sm rounded-lg border border-[#2C2C2C]"><span class="ar">إدارة الوقت</span><span class="en">Time Management</span></span>
+                    <span class="px-2 py-1 md:px-3 md:py-1.5 bg-[#232323] text-slate-300 text-xs md:text-sm rounded-lg border border-[#2C2C2C]"><span class="ar">تطوير الذات</span><span class="en">Self Development</span></span>
+                    <span class="px-2 py-1 md:px-3 md:py-1.5 bg-[#232323] text-slate-300 text-xs md:text-sm rounded-lg border border-[#2C2C2C]"><span class="ar">مهارات تحليلية</span><span class="en">Analytical Skills</span></span>
+                    <span class="px-2 py-1 md:px-3 md:py-1.5 bg-[#232323] text-slate-300 text-xs md:text-sm rounded-lg border border-[#2C2C2C]"><span class="ar">العمل الجماعي</span><span class="en">Teamwork</span></span>
+                    <span class="px-2 py-1 md:px-3 md:py-1.5 bg-[#232323] text-slate-300 text-xs md:text-sm rounded-lg border border-[#2C2C2C]"><span class="ar">البحث</span><span class="en">Research</span></span>
+                    <span class="px-2 py-1 md:px-3 md:py-1.5 bg-[#232323] text-slate-300 text-xs md:text-sm rounded-lg border border-[#2C2C2C]"><span class="ar">التخطيط</span><span class="en">Planning</span></span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden">
+        
+        <!-- Education block -->
+        <div class="text-center mb-8 md:mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold flex items-center justify-center gap-3 text-white mb-4">
+                <i data-lucide="graduation-cap" class="w-8 h-8 text-slate-400"></i>
+                <span class="ar">التعليم</span>
+                <span class="en">Education</span>
+            </h2>
+        </div>
+        <div class="glass-card p-6 md:p-8 rounded-2xl relative text-center mb-16 md:mb-20 border-[#2C2C2C] hover:border-purple-500/50 transition-colors">
+            <h3 class="font-bold text-xl md:text-2xl text-white mb-2">
+                <span class="ar">كلية التجارة، جامعة المنصورة</span>
+                <span class="en">Faculty of Commerce, Mansoura University</span>
+            </h3>
+            <span class="inline-block px-3 py-1 md:px-4 md:py-1.5 rounded-lg bg-[#232323] text-purple-300 text-xs md:text-sm font-medium border border-[#2C2C2C]" dir="ltr">2019 – 2023</span>
+        </div>
+
+        <!-- Experience Timeline -->
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold flex items-center justify-center gap-3 text-white mb-4">
+                <i data-lucide="briefcase" class="w-8 h-8 text-slate-400"></i>
+                <span class="ar">الخبرة العملية</span>
+                <span class="en">Work Experience</span>
+            </h2>
+        </div>
+        
+        <div class="space-y-8 relative before:absolute before:inset-0 before:ms-5 md:before:mx-auto md:before:translate-x-0 before:h-full before:w-px before:bg-gradient-to-b before:from-purple-500/50 before:via-pink-500/50 before:to-transparent">
+            
+            <!-- TAG Company -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A0A0A] bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform group-hover:scale-110 ml-4 md:ml-0 mb-4 md:mb-0">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div class="w-full md:w-[calc(50%-3rem)] glass-card hover-glass p-5 md:p-6 rounded-2xl transition-all relative">
+                    <h3 class="font-bold text-lg md:text-xl text-white mb-1.5 leading-tight" dir="ltr">UI/UX Designer</h3>
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 rounded-lg bg-[#232323] text-purple-300 text-[10px] md:text-xs font-medium border border-[#2C2C2C]">
+                            <span class="ar">شركة تاج (TAG)</span><span class="en">TAG Company</span>
+                        </span>
+                        <span class="text-slate-400 text-[10px] md:text-xs" dir="ltr">Nov 2024 – Present</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nizak Company -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active mt-8">
+                <div class="flex items-center justify-center w-10 h-10 md:w-4 md:h-4 rounded-full border-4 md:border-2 border-[#0A0A0A] bg-pink-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-4 md:ml-0 mb-4 md:mb-0"></div>
+                <div class="w-full md:w-[calc(50%-3rem)] bg-[#161616] hover:bg-[#1D1C1C] border border-[#2C2C2C] p-5 md:p-6 rounded-2xl transition-colors">
+                    <h3 class="font-bold text-base md:text-lg text-white mb-1.5 leading-tight" dir="ltr">UI/UX Designer</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 rounded-lg bg-[#232323] text-slate-300 text-[10px] md:text-xs font-medium border border-[#2C2C2C]">
+                            <span class="ar">شركة نيزك (Nizak)</span><span class="en">Nizak Company</span>
+                        </span>
+                        <span class="text-slate-500 text-[10px] md:text-xs" dir="ltr">Jun 2023 – Oct 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Azzrk Company -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active mt-8">
+                <div class="flex items-center justify-center w-10 h-10 md:w-4 md:h-4 rounded-full border-4 md:border-2 border-[#0A0A0A] bg-pink-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-4 md:ml-0 mb-4 md:mb-0"></div>
+                <div class="w-full md:w-[calc(50%-3rem)] bg-[#161616] hover:bg-[#1D1C1C] border border-[#2C2C2C] p-5 md:p-6 rounded-2xl transition-colors">
+                    <h3 class="font-bold text-base md:text-lg text-white mb-1.5 leading-tight" dir="ltr">UI/UX Designer</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 rounded-lg bg-[#232323] text-slate-300 text-[10px] md:text-xs font-medium border border-[#2C2C2C]">
+                            <span class="ar">شركة أزرق (Azzrk)</span><span class="en">Azzrk Company</span>
+                        </span>
+                        <span class="text-slate-500 text-[10px] md:text-xs" dir="ltr">Jul 2022 – Jun 2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Elryad Company -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active mt-8">
+                <div class="flex items-center justify-center w-10 h-10 md:w-4 md:h-4 rounded-full border-4 md:border-2 border-[#0A0A0A] bg-slate-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-4 md:ml-0 mb-4 md:mb-0"></div>
+                <div class="w-full md:w-[calc(50%-3rem)] bg-[#161616] hover:bg-[#1D1C1C] border border-[#2C2C2C] p-5 md:p-6 rounded-2xl transition-colors">
+                    <h3 class="font-bold text-base md:text-lg text-white mb-1.5 leading-tight" dir="ltr">SEO Content / Social Media Support</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 rounded-lg bg-[#232323] text-slate-300 text-[10px] md:text-xs font-medium border border-[#2C2C2C]">
+                            <span class="ar">شركة الرياض (Elryad)</span><span class="en">Elryad Company</span>
+                        </span>
+                        <span class="text-slate-500 text-[10px] md:text-xs" dir="ltr">Oct 2021 – Feb 2022</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spades Company -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active mt-8">
+                <div class="flex items-center justify-center w-10 h-10 md:w-4 md:h-4 rounded-full border-4 md:border-2 border-[#0A0A0A] bg-slate-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-4 md:ml-0 mb-4 md:mb-0"></div>
+                <div class="w-full md:w-[calc(50%-3rem)] bg-[#161616] hover:bg-[#1D1C1C] border border-[#2C2C2C] p-5 md:p-6 rounded-2xl transition-colors">
+                    <h3 class="font-bold text-base md:text-lg text-white mb-1.5 leading-tight" dir="ltr">Graphic Designer</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 rounded-lg bg-[#232323] text-slate-300 text-[10px] md:text-xs font-medium border border-[#2C2C2C]">
+                            <span class="ar">شركة سبيدز (Spades)</span><span class="en">Spades Company</span>
+                        </span>
+                        <span class="text-slate-500 text-[10px] md:text-xs" dir="ltr">Sep 2021 – Jan 2022</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUIUX Company (Content Writer) -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active mt-8">
+                <div class="flex items-center justify-center w-10 h-10 md:w-4 md:h-4 rounded-full border-4 md:border-2 border-[#0A0A0A] bg-slate-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-4 md:ml-0 mb-4 md:mb-0"></div>
+                <div class="w-full md:w-[calc(50%-3rem)] bg-[#161616] hover:bg-[#1D1C1C] border border-[#2C2C2C] p-5 md:p-6 rounded-2xl transition-colors">
+                    <h3 class="font-bold text-base md:text-lg text-white mb-1.5 leading-tight" dir="ltr">Web Content Writer / Team Leader</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 rounded-lg bg-[#232323] text-slate-300 text-[10px] md:text-xs font-medium border border-[#2C2C2C]">
+                            <span class="ar">شركة PUIUX</span><span class="en">PUIUX Company</span>
+                        </span>
+                        <span class="text-slate-500 text-[10px] md:text-xs" dir="ltr">Feb 2021 – Sep 2021</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUIUX Company (Training) -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active mt-8">
+                <div class="flex items-center justify-center w-10 h-10 md:w-4 md:h-4 rounded-full border-4 md:border-2 border-[#0A0A0A] bg-slate-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-4 md:ml-0 mb-4 md:mb-0"></div>
+                <div class="w-full md:w-[calc(50%-3rem)] bg-[#161616] hover:bg-[#1D1C1C] border border-[#2C2C2C] p-5 md:p-6 rounded-2xl transition-colors">
+                    <h3 class="font-bold text-base md:text-lg text-white mb-1.5 leading-tight" dir="ltr">UI/UX Designer (Training)</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-2 py-1 md:px-3 md:py-1 rounded-lg bg-[#232323] text-slate-300 text-[10px] md:text-xs font-medium border border-[#2C2C2C]">
+                            <span class="ar">شركة PUIUX</span><span class="en">PUIUX Company</span>
+                        </span>
+                        <span class="text-slate-500 text-[10px] md:text-xs" dir="ltr">Jan 2021 – Sep 2021</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-10">
+        <div class="bg-[#161616] rounded-3xl p-6 sm:p-10 md:p-16 shadow-2xl text-center relative overflow-hidden border border-[#2C2C2C]">
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-transparent -z-10"></div>
+            
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">
+                <span class="ar">هل لديك فكرة أو مشروع جديد؟</span>
+                <span class="en">Have a new idea or project?</span>
+            </h2>
+            <p class="text-slate-400 mb-8 md:mb-12 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-light">
+                <span class="ar">سواء كنت بحاجة لتصميم واجهة لتطبيقك القادم، أو بناء هوية بصرية قوية لعلامتك التجارية، أنا هنا للمساعدة.</span>
+                <span class="en">Whether you need an interface design for your next app, or to build a strong visual identity for your brand, I'm here to help.</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 md:gap-4">
+                <a href="mailto:ahmedtarekadelabdelazem@gmail.com" class="w-full sm:w-auto flex items-center justify-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-xl glass-card border border-[#2C2C2C] hover:bg-[#232323] transition-all group">
+                    <i data-lucide="mail" class="w-5 h-5 text-slate-400 group-hover:text-pink-400 transition-colors shrink-0"></i>
+                    <span class="font-medium text-slate-200 text-xs md:text-sm tracking-wide truncate">ahmedtarekadelabdelazem@gmail.com</span>
+                </a>
+                
+                <a href="tel:+201028875762" class="w-full sm:w-auto flex items-center justify-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-xl glass-card border border-[#2C2C2C] hover:bg-[#232323] transition-all group">
+                    <i data-lucide="phone" class="w-5 h-5 text-slate-400 group-hover:text-purple-400 transition-colors shrink-0"></i>
+                    <span class="font-medium text-slate-200 text-xs md:text-sm tracking-wider" dir="ltr">010 288 757 62</span>
+                </a>
+                
+                <a href="https://linkedin.com/in/ahmed-tarek-adel-a53687215" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex items-center justify-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-xl glass-card border border-[#2C2C2C] hover:bg-[#232323] transition-all group">
+                    <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-400 transition-colors shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    <span class="font-medium text-slate-200 text-xs md:text-sm tracking-wider">LinkedIn</span>
+                </a>
+
+                <a href="https://behance.net/Aahmedtarekadel" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex items-center justify-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-xl glass-card border border-[#2C2C2C] hover:bg-[#232323] transition-all group">
+                    <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+                        <path d="M232 237.2c31.8-15.2 48.4-38.2 48.4-74 0-70.6-52.6-87.8-113.3-87.8H0v354.4h171.8c64.4 0 124.9-30.9 124.9-102.9 0-44.5-21.1-77.4-64.7-89.7zM58.4 122h66.1c30.9 0 49.2 11.5 49.2 33 0 26.1-19.7 34.6-51.8 34.6H58.4V122zm73.3 258.4H58.4v-71.6h71.4c32.6 0 53.9 13.8 53.9 36.9 0 22.2-18.9 34.7-52 34.7zm321.4-114.6c-18.9-14.9-42.5-22.2-70.5-22.2-54.6 0-98.5 40.1-98.5 106.8 0 68 45.4 105.4 103.9 105.4 48.9 0 81.2-25.2 97.4-62.8h-44.5c-11.5 17.2-28.7 26.2-51.2 26.2-32.6 0-52.6-19.5-56-54.6h153.9c.5-5.2 .5-13.8 .5-18.4 0-35.6-13.3-64.4-35-80.4zm-68.5 19.5c23 0 38.5 16.1 41.4 40.2h-85.7c4.6-23 21.3-40.2 44.3-40.2zM395 196.2h-82.7v-36.8h82.7v36.8z"/>
+                    </svg>
+                    <span class="font-medium text-slate-200 text-xs md:text-sm tracking-wider">Behance</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-[#2C2C2C] py-8 text-center bg-[#0A0A0A]">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
+            <div class="w-8 h-1 bg-[#363636] rounded-full mb-6"></div>
+            <p class="text-slate-500 font-light text-xs md:text-sm">
+                &copy; 2026 
+                <span class="ar">أحمد طارق عادل. صُمم بشغف.</span>
+                <span class="en">Ahmed Tarek Adel. Designed with passion.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[90] flex flex-col gap-3 md:gap-4">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/201028875762" target="_blank" rel="noopener noreferrer" 
+           class="p-3 md:p-4 rounded-full bg-[#25D366] text-white shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] hover:scale-110 transition-all duration-300 flex items-center justify-center"
+           title="WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-6 h-6 md:w-7 md:h-7">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+            </svg>
+        </a>
+        <!-- Call -->
+        <a href="tel:+201028875762" 
+           class="p-3 md:p-4 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 text-white shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:shadow-[0_0_30px_rgba(236,72,153,0.6)] hover:scale-110 transition-all duration-300 flex items-center justify-center"
+           title="Call">
+            <i data-lucide="phone" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </a>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-[#0A0A0A]/95 hidden items-center justify-center p-4 md:p-10 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <button id="close-lightbox" class="absolute top-4 right-4 md:top-6 md:right-6 text-slate-400 hover:text-white transition-colors z-50 p-2 bg-[#232323] rounded-full hover:bg-[#363636] border border-[#2C2C2C]">
+            <i data-lucide="x" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Full size view" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // --- SWIPER INITIALIZATION ---
+            let uiSwiper;
+            function initSwiper() {
+                uiSwiper = new Swiper('.ui-swiper-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: false,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    grabCursor: true,
+                    // Automatically adjust height based on the active slide's content
+                    autoHeight: false, 
+                });
+            }
+
+            // Language Toggle Logic
+            const langToggleBtn = document.getElementById('lang-toggle');
+            const langText = document.getElementById('lang-text');
+            const htmlTag = document.documentElement;
+
+            // Load saved language or default to Arabic
+            const savedLang = localStorage.getItem('portfolioLang') || 'ar';
+            setLanguage(savedLang);
+
+            langToggleBtn.addEventListener('click', () => {
+                const currentLang = htmlTag.getAttribute('lang');
+                const newLang = currentLang === 'ar' ? 'en' : 'ar';
+                setLanguage(newLang);
+            });
+
+            function setLanguage(lang) {
+                htmlTag.setAttribute('lang', lang);
+                htmlTag.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+                localStorage.setItem('portfolioLang', lang);
+
+                if (lang === 'ar') {
+                    document.title = "أحمد طارق عادل | UI/UX & Graphic Designer";
+                    langText.textContent = "EN";
+                } else {
+                    document.title = "Ahmed Tarek Adel | UI/UX & Graphic Designer";
+                    langText.textContent = "AR";
+                }
+
+                // Destroy and Re-initialize Swiper to accurately apply new RTL/LTR swipe directions
+                if (uiSwiper) {
+                    uiSwiper.destroy(true, true);
+                }
+                setTimeout(() => {
+                    initSwiper();
+                }, 50);
+            }
+
+            // Mobile Menu Toggle Logic
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            }
+
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            // Hero section fade-in animation
+            setTimeout(() => {
+                const heroContent = document.getElementById('hero-content');
+                heroContent.classList.remove('translate-y-10', 'opacity-0');
+                heroContent.classList.add('translate-y-0', 'opacity-100');
+            }, 100);
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Lightbox functionality for Graphic Design Gallery
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeLightboxBtn = document.getElementById('close-lightbox');
+            const galleryImages = document.querySelectorAll('.gallery-img');
+
+            const openLightbox = (src) => {
+                lightboxImg.src = src;
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+                
+                // Trigger reflow for transition
+                setTimeout(() => {
+                    lightbox.classList.remove('opacity-0');
+                    lightboxImg.classList.remove('scale-95');
+                    lightboxImg.classList.add('scale-100');
+                }, 10);
+            };
+
+            const closeLightbox = () => {
+                lightbox.classList.add('opacity-0');
+                lightboxImg.classList.remove('scale-100');
+                lightboxImg.classList.add('scale-95');
+                
+                setTimeout(() => {
+                    lightbox.classList.remove('flex');
+                    lightbox.classList.add('hidden');
+                    lightboxImg.src = '';
+                }, 300);
+            };
+
+            galleryImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    openLightbox(img.src);
+                });
+            });
+
+            closeLightboxBtn.addEventListener('click', closeLightbox);
+            
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
