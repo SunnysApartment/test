@@ -240,11 +240,17 @@
                 padding-left: 64px !important;
                 padding-right: 64px !important;
             }
-            .swiper-button-next {
+            
+            /* Properly handle LTR and RTL Swiper arrow positioning */
+            html[dir="ltr"] .swiper-button-next,
+            html[dir="rtl"] .swiper-button-prev {
                 right: 0 !important;
+                left: auto !important;
             }
-            .swiper-button-prev {
+            html[dir="ltr"] .swiper-button-prev,
+            html[dir="rtl"] .swiper-button-next {
                 left: 0 !important;
+                right: auto !important;
             }
         }
 
